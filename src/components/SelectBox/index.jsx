@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import * as S from './style'
+// import * as S from './style'
 
-function Header() {
+function SelectBox() {
   const [data, setData] = useState()
   return (
-    <S.Header>
+    <div>
       <form>
         <select name="" id="">
           <option value=""></option>
@@ -13,8 +13,8 @@ function Header() {
           <option value=""></option>
         </select>
       </form>
-    </S.Header>
+    </div>
   )
 }
 
-export default Header
+export default SelectBox
