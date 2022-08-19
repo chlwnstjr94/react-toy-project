@@ -14,18 +14,30 @@ export const Card = styled.section`
   p {
     margin: 10px 0;
   }
-  .card-title {
+  .card-header {
+    width: 100%;
     display: flex;
-    align-items: end;
-    margin: 10px 0;
-    .station-name {
-      font-size: 20px;
-      margin-right: 10px;
+    justify-content: center;
+    position: relative;
+    .card-title {
+      display: flex;
+      align-items: end;
+      margin: 10px 0;
+      .station-name {
+        font-size: 20px;
+        margin-right: 10px;
+      }
+      .sido-name {
+        font-size: 14px;
+      }
     }
-    .sido-name {
-      font-size: 14px;
+    .header-icon {
+      position: absolute;
+      right: 0;
+      font-size: 30px;
     }
   }
+
   .dust-grade {
     background-color: #fff;
     font-size: 30px;

@@ -1,4 +1,5 @@
 import React from 'react'
+import { AiOutlineStar } from 'react-icons/ai'
 import * as S from './style'
 
 const pm10Grade = {
@@ -17,12 +18,19 @@ const pm10GradeColor = {
   5: '#C21010',
 }
 
+function isClicked() {}
+
 function Card(data) {
   return (
     <S.Card color={data.pm10Grade ? pm10GradeColor[data.pm10Grade] : '#9e9e9e'}>
-      <div className="card-title">
-        <h3 className="station-name">{data.stationName}</h3>
-        <span className="sido-name">{data.sidoName}</span>
+      <div className="card-header">
+        <div className="card-title">
+          <h3 className="station-name">{data.stationName}</h3>
+          <span className="sido-name">{data.sidoName}</span>
+        </div>
+        <div className="header-icon">
+          <AiOutlineStar />
+        </div>
       </div>
       <p className="dust-grade">
         {data.pm10Grade ? pm10Grade[data.pm10Grade] : '데이터 없음'}
