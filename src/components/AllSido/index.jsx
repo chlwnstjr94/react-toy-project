@@ -1,22 +1,21 @@
-import React from 'react'
-import useAsync from '../../hooks/useAsync'
-import getDustInfo from '../../utils/getFindDust'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchDust, getGuGunList } from '../../store/dust'
 import Card from '../Card'
 import * as S from './style'
 
 function AllSido() {
-  const state = useAsync(() => getDustInfo('전국'))
-  const { loading, data: dust, error } = state
+  const datas = useSelector(getGuGunList)
+  const dispatch = useDispatch()
 
-  if (loading) return <p>로딩중</p>
-  if (error) return <p>{error}</p>
+  useEffect(() => {
+    dispatch(fetchDust('전국'))
+  }, [])
+
   return (
     <S.AllSido>
       <h1 className="title">전체 시도보기</h1>
-      {dust &&
-        dust.map((el) => {
-          return <Card key={el.stationName} {...el} />
-        })}
+      {datas && datas.map((item, index) => <Card key={index} info={item} />)}
     </S.AllSido>
   )
 }
