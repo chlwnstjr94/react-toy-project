@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
-import useAsync from '../../hooks/useAsync'
-import getDustInfo from '../../utils/getFindDust'
-import { setMyArea } from '../../store/dust'
-import { useAppDispatch } from '../../store'
-// import * as S from './style'
+import React, { useEffect, useState } from 'react'
+import * as S from './style'
+import { fetchDust, filterGuGunDatas, getGuGunList } from '../../store/dust'
+import { useSelector, useDispatch } from 'react-redux/es/exports'
 
 const SIDO_ARR = [
   '서울',
@@ -26,50 +24,43 @@ const SIDO_ARR = [
 ]
 
 function SelectBox() {
-  // const dispatch = useAppDispatch()
-  // const dustState = useAppSelector((state) => state.dust)
-  const state = useAsync(() => getDustInfo('전국'))
-  const { loading, data: dust, error } = state
-  const [sido, setSido] = useState('')
+  const [sido, setSido] = useState(SIDO_ARR)
+  const dispatch = useDispatch()
+  const guGunList = useSelector(getGuGunList)
 
-  if (loading) return <p>로딩중</p>
-  if (error) return <p>{error}</p>
-
-  const selectSidoHandler = (e) => {
+  const selectSidoHandler = async (e) => {
     if (e.currentTarget.value === '시도') return
     setSido(e.currentTarget.value)
-    // dispatch(getDustInfo(e.currentTarget.value))
-    getDustInfo(e.currentTarget.value)
+    dispatch(fetchDust(e.target.value))
   }
 
   const selectGunGuHandler = (e) => {
     if (e.currentTarget.value === '군구') return
+    dispatch(filterGuGunDatas(e.target.value))
   }
 
+  useEffect(() => {
+    dispatch(fetchDust(sido))
+  }, [dispatch, sido])
+
   return (
-    <div>
-      <div>
-        <label htmlFor="sido">시도</label>
-        <select onChange={selectSidoHandler} id="sido">
-          <option key={'시도'}>시도</option>
-          {SIDO_ARR.map((sido, index) => (
-            <option key={index}>{sido}</option>
+    <S.Select>
+      <select onChange={selectSidoHandler} id="sido" className="select">
+        <option key={'시도'}>시도</option>
+        {SIDO_ARR.map((sido, index) => (
+          <option key={index}>{sido}</option>
+        ))}
+      </select>
+      <select onChange={selectGunGuHandler} id="gungu" className="select">
+        <option key={'군구'}>군구</option>
+        {guGunList &&
+          guGunList.map((gugun, index) => (
+            <option key={index} value={gugun}>
+              {gugun}
+            </option>
           ))}
-        </select>
-        <label htmlFor="gungu">군구</label>
-        <select onChange={selectGunGuHandler} id="gungu">
-          <option key={'군구'}>군구</option>
-          {dust &&
-            dust.map((dust) => (
-              <option key={dust.stationName}>{dust.stationName}</option>
-            ))}
-          {/* {dustState.dustDataArr &&
-            dustState.dustDataArr.map((dust) => (
-              <option key={dust.stationName}>{dust.stationName}</option>
-            ))} */}
-        </select>
-      </div>
-    </div>
+      </select>
+    </S.Select>
   )
 }
 
