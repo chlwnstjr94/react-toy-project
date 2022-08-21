@@ -1,19 +1,18 @@
 import React from 'react'
-import useAsync from '../../hooks/useAsync'
-import getDustInfo from '../../utils/getFindDust'
+import { useSelector } from 'react-redux/es/exports'
+import { selectCardData } from '../../store/dust'
+import Card from '../Card'
 import SelectBox from '../SelectBox'
+import * as S from './style'
 
 function MyPlace() {
-  const state = useAsync(getDustInfo)
-  const { loading, data: dust, error } = state
-
-  if (loading) return <p>로딩중</p>
-  if (error) return <p>{error}</p>
+  const data = useSelector(selectCardData)
   return (
-    <div>
+    <S.MyPlace>
       <h1 className="title">내 지역보기</h1>
       <SelectBox />
-    </div>
+      <div> {data && <Card info={data} />}</div>
+    </S.MyPlace>
   )
 }
 
