@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.title {
+  font-size: 30px;
+  padding: 16px;
+  background-color: #99a799;
+  color: #fef5ed;
+}
