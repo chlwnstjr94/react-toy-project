@@ -51,7 +51,7 @@ const dustSlice = createSlice({
       localStorage.setItem('myFavorite', JSON.stringify(state.myFavorite))
     },
   },
-  extraReducers(builder) {
+  extraReducers: (builder) => {
     builder
       .addCase(fetchDust.pending, (state, action) => {
         state.status = 'loading'
