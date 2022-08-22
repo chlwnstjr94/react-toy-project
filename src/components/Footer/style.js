@@ -8,15 +8,19 @@ export const Footer = styled.footer`
   justify-content: space-around;
   position: fixed;
   bottom: 0;
-  background-color: #fff;
+  background-color: #99a799;
   font-size: 18px;
   .footer-nav {
     text-decoration: none;
-    color: black;
+    color: #fef5ed;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: 0.3s;
+    &:hover {
+      color: #345b63;
+    }
     .nav-title {
       margin-top: 6px;
     }
