@@ -26,7 +26,6 @@ export const fetchDust = createAsyncThunk('fetchDust', async (sidoName) => {
         params: { ...queryParams, sidoName },
       },
     )
-    console.log(response.data)
     return response.data['response']['body']['items']
   } catch (error) {
     console.log(error)
